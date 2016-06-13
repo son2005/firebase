@@ -1,4 +1,4 @@
-# Google Firebase SDK integration
+# Google Firebase SDK integration with Cocos2d-x v3
 
 Prerequisites
 ---
