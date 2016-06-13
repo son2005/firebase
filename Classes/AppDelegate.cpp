@@ -53,8 +53,8 @@ static void firebase_test()
     CCLOG("Initialize the Analytics library");
 #if defined(__ANDROID__)
     ::firebase::AppOptions options;
-    // options.set_app_id("281343926607-8740isl9kao0n7d87vd5tp2a8lo8cvuk.apps.googleusercontent.com");
-    // options.set_api_key("AIzaSyCouO_YdowioS2n7m5vBr1n5RqhSKo3s_8");
+    options.set_app_id("281343926607-8740isl9kao0n7d87vd5tp2a8lo8cvuk.apps.googleusercontent.com");
+    options.set_api_key("AIzaSyCouO_YdowioS2n7m5vBr1n5RqhSKo3s_8");
     app = ::firebase::App::Create(options, JniHelper::getEnv(), JniHelper::GetActivity());
 #else
     app = ::firebase::App::Create(::firebase::AppOptions());
