@@ -1,0 +1,11 @@
+bin
+cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata
+cocos2d/cocos/platform/android/java/gen
+local.properties
+proj.android/assets
+proj.android/gen
+proj.android/libs/armeabi
+proj.android/libs/gps/gen
+proj.android/obj
+proj.ios_mac/firebase.xcodeproj/project.xcworkspace
+proj.ios_mac/firebase.xcodeproj/xcuserdata
