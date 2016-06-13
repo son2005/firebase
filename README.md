@@ -15,31 +15,31 @@ Steps
 
     > iOS
 
-    https://github.com/yinjimmy/firebase/blob/master/proj.ios_mac/Analytics
-    https://github.com/yinjimmy/firebase/blob/master/GoogleService-Info.plist
+    [proj.ios_mac/Analytics](https://github.com/yinjimmy/firebase/blob/master/proj.ios_mac/Analytics)
+    [proj.ios_mac/GoogleService-Info.plist](https://github.com/yinjimmy/firebase/blob/master/proj.ios_mac/GoogleService-Info.plist)
 
     > Android
 
-    https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/google-firebase.jar
-    https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/gps
-    https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/android-support-v4.jar
+    [proj.android/libs/google-firebase.jar](https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/google-firebase.jar)
+    [proj.android/libs/gps](https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/gps)
+    [proj.android/libs/android-support-v4.jar](https://github.com/yinjimmy/firebase/blob/master/proj.android/libs/android-support-v4.jar)
 
 
 1. Put Firebase SDK `firebase_cpp_sdk` in `cocos2d/external/firebase_cpp_sdk`
 
-    https://github.com/yinjimmy/firebase/blob/master/cocos2d/external/firebase_cpp_sdk/Android.mk
+    [cocos2d/external/firebase_cpp_sdk/Android.mk](https://github.com/yinjimmy/firebase/blob/master/cocos2d/external/firebase_cpp_sdk/Android.mk)
 
-2. Modified [Android.mk](https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/Android.mk)
+2. Modified `cocos2d/cocos/Android.mk`
 
     https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/Android.mk#L89
     https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/Android.mk#L130
 
-3. Added to [JNIHelper](https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/platform/android/jni/JniHelper.h) function GetActivity to get Activity.
+3. Added to `cocos2d/cocos/platform/android/jni/JniHelper.h` function GetActivity to get Activity.
 
     https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/platform/android/jni/JniHelper.h#L49
     https://github.com/yinjimmy/firebase/blob/master/cocos2d/cocos/platform/android/jni/JniHelper.cpp#L126
 
-4. Modified AndroidManifest.xml
+4. Modified `proj.android/AndroidManifest.xml`
 
     https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L30
 
