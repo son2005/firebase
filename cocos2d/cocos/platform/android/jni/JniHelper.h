@@ -176,6 +176,8 @@ private:
 
     static JavaVM* _psJavaVM;
 
+    static jobject _activity;
+
     static jstring convert(cocos2d::JniMethodInfo& t, const char* x);
 
     static jstring convert(cocos2d::JniMethodInfo& t, const std::string& x);

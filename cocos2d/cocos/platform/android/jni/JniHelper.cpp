@@ -67,6 +67,7 @@ namespace cocos2d {
     JavaVM* JniHelper::_psJavaVM = nullptr;
     jmethodID JniHelper::loadclassMethod_methodID = nullptr;
     jobject JniHelper::classloader = nullptr;
+    jobject JniHelper::_activity = nullptr;
     std::unordered_map<JNIEnv*, std::vector<jobject>> JniHelper::localRefs;
 
     JavaVM* JniHelper::getJavaVM() {
@@ -124,31 +125,7 @@ namespace cocos2d {
     }
 
     jobject JniHelper::GetActivity() {
-        jobject activityObject = NULL;
-        do {
-            JNIEnv* env = JniHelper::getEnv();
-            jclass activityClass = env->FindClass("org/cocos2dx/lib/Cocos2dxHelper");
-            if (!activityClass) {
-                LOGD("Failed to get org/cocos2dx/lib/Cocos2dxHelper class");
-                break;
-            }
-
-            //Get the Activity field
-            jfieldID activityField = env->GetStaticFieldID(activityClass, "sActivity", "Landroid/app/Activity;");
-            if (!activityField) {
-                LOGD("Failed to get filed 'sActivity'");
-                break;
-            }
-
-            //Get the Activity object
-            activityObject = env->GetStaticObjectField(activityClass, activityField);
-            if (!activityObject) {
-                LOGD("Failed to get activity object");
-                break;
-            }
-        } while (0);
-
-        return activityObject;
+        return _activity;
     }
 
     bool JniHelper::setClassLoaderFrom(jobject activityinstance) {
@@ -177,6 +154,7 @@ namespace cocos2d {
 
         JniHelper::classloader = cocos2d::JniHelper::getEnv()->NewGlobalRef(_c);
         JniHelper::loadclassMethod_methodID = _m.methodID;
+        JniHelper::_activity = cocos2d::JniHelper::getEnv()->NewGlobalRef(activityinstance);
 
         return true;
     }
