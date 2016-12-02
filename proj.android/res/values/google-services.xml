@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">281343926607-8740isl9kao0n7d87vd5tp2a8lo8cvuk.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId"   translatable="false">281343926607</string>
+    <string name="firebase_database_url" translatable="false">https://cocosfirebase.firebaseio.com</string>
+    <string name="google_app_id"         translatable="false">1:281343926607:android:d1d9ff7df86126e5</string>
+    <string name="google_api_key"        translatable="false">AIzaSyCouO_YdowioS2n7m5vBr1n5RqhSKo3s_8</string>
+    <string name="google_storage_bucket" translatable="false">cocosfirebase.appspot.com</string>
+</resources>
