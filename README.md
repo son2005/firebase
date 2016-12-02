@@ -43,6 +43,9 @@ Steps
 
     https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L30
 
+5. Convert `google-services.json` to `res/values/google-services.xml`
+
+    ./json2xml.py
 Test
 ---
 
