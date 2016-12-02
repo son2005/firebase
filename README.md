@@ -46,7 +46,10 @@ Steps
 
 5. Convert `google-services.json` to `res/values/google-services.xml`
 
-    ./json2xml.py
+    ```
+    ./json2xml.py google-services.json
+    ```
+    
 Test
 ---
 
