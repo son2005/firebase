@@ -5,6 +5,8 @@ Prerequisites
 
 iOS and Android samples for the [Firebase C++ SDK](https://firebase.google.com/docs/cpp/setup).
 
+[https://firebase.google.com/docs/reference/gradle/#processing_the_json_file](https://firebase.google.com/docs/reference/gradle/#processing_the_json_file)
+
 For more information, see [https://firebase.google.com/](https://firebase.google.com/).
 
 
