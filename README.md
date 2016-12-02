@@ -41,7 +41,8 @@ Steps
 
 4. Modified `proj.android/AndroidManifest.xml`
 
-    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L30
+    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L11-L21
+    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L45-L107
 
 5. Convert `google-services.json` to `res/values/google-services.xml`
 
