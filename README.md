@@ -49,10 +49,52 @@ Steps
     ```
     ./json2xml.py google-services.json
     ```
-    
+
 Test
 ---
 
 https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L4-L13
 https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L156
+
+
+Error
+---
+
+```
+12-02 22:16:47.683 24451-24490/org.cocosbox.firebase E/FirebaseCrash: Failed to initialize crash reporting
+                                                                      java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
+                                                                          at android.os.Handler.<init>(Handler.java:209)
+                                                                          at android.os.Handler.<init>(Handler.java:123)
+                                                                          at com.google.firebase.crash.internal.api.FirebaseCrashApiImpl.init(:com.google.android.gms.DynamiteModulesC:1175)
+                                                                          at bot.onTransact(:com.google.android.gms.DynamiteModulesC:60)
+                                                                          at android.os.Binder.transact(Binder.java:385)
+                                                                          at com.google.firebase.crash.internal.zzd$zza$zza.zza(Unknown Source)
+                                                                          at com.google.firebase.crash.FirebaseCrash.<init>(Unknown Source)
+                                                                          at com.google.firebase.crash.FirebaseCrash.getInstance(Unknown Source)
+                                                                          at java.lang.reflect.Method.invoke(Native Method)
+                                                                          at java.lang.reflect.Method.invoke(Method.java:372)
+                                                                          at com.google.firebase.FirebaseApp.zza(Unknown Source)
+                                                                          at com.google.firebase.FirebaseApp.initializeApp(Unknown Source)
+                                                                          at com.google.firebase.FirebaseApp.initializeApp(Unknown Source)
+                                                                          at org.cocos2dx.lib.Cocos2dxRenderer.nativeInit(Native Method)
+                                                                          at org.cocos2dx.lib.Cocos2dxRenderer.onSurfaceCreated(Cocos2dxRenderer.java:72)
+                                                                          at android.opengl.GLSurfaceView$GLThread.guardedRun(GLSurfaceView.java:1548)
+                                                                          at android.opengl.GLSurfaceView$GLThread.run(GLSurfaceView.java:1286)
+
+...
+...
+...
+
+12-02 22:16:47.737 24451-24490/org.cocosbox.firebase E/FA: GoogleService failed to initialize, status: 10, Missing google app id value from from string resources with name google_app_id.
+```
+
+missing step 4 and 5
+
+got bellow message if success
+
+```
+12-02 22:11:00.693 20050-20104/org.cocosbox.firebase I/firebase: firebase::App initializing app org.cocosbox.firebase (default 1).
+12-02 22:11:00.694 20050-20104/org.cocosbox.firebase W/firebase: firebase::AppOptions will be ignored as the default app has already been initialized.  To disable automatic app initialization remove or rename resources derived from google-services.json.
+```
+
 
