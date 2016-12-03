@@ -49,7 +49,7 @@ Steps
 5. Convert `google-services.json` to `res/values/google-services.xml`
 
     ```
-    ./json2xml.py google-services.json
+    ./generate_xml_from_google_services_json.py -i google-services.json -o proj.android/res/values/google-services.xml
     ```
 
 Test

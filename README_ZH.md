@@ -5,6 +5,8 @@
 
 iOS and Android samples for the [Firebase C++ SDK](https://firebase.google.com/docs/cpp/setup)。
 
+[https://firebase.google.com/docs/reference/gradle/#processing_the_json_file](https://firebase.google.com/docs/reference/gradle/#processing_the_json_file)
+
 访问 [https://firebase.google.com/](https://firebase.google.com/) 获取更多关于 Firebase 的资料。
 
 
@@ -41,11 +43,41 @@ iOS and Android samples for the [Firebase C++ SDK](https://firebase.google.com/d
 
 4. 修改 `proj.android/AndroidManifest.xml` 文件
 
-    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L30
+    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L11-L21
+    https://github.com/yinjimmy/firebase/blob/master/proj.android/AndroidManifest.xml#L45-L107
 
+5. 把 `google-services.json` 转化为 `res/values/google-services.xml` 文件
+
+    ```
+    ./generate_xml_from_google_services_json.py -i google-services.json -o proj.android/res/values/google-services.xml
+    ```
+    
 测试代码
 ---
 
 https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L4-L13
 https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L156
+
+
+安卓上，logcat 输出：
+```
+I/firebase: firebase::App initializing app org.cocosbox.firebase (default 1).
+```
+
+表示集成成功。
+
+
+问题
+---
+
+如果碰到一下错误:
+```
+E/FirebaseCrash: Failed to initialize crash reporting
+
+......
+
+E/FA: GoogleService failed to initialize, status: 10, Missing google app id value from from string resources with name google_app_id.
+```
+
+检查第4，5步骤。
 
