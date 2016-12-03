@@ -99,4 +99,5 @@ got bellow message if success
 12-02 22:11:00.694 20050-20104/org.cocosbox.firebase W/firebase: firebase::AppOptions will be ignored as the default app has already been initialized.  To disable automatic app initialization remove or rename resources derived from google-services.json.
 ```
 
-
+![android](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_android.png)
+![ios](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_ios.png)
