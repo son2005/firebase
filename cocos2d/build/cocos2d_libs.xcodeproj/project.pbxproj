@@ -893,6 +893,7 @@
 		9F6A4C801C5230E600831F4A /* tolua_fix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A4B4B1C5230E600831F4A /* tolua_fix.cpp */; };
 		9F6A4C811C5230E600831F4A /* tolua_fix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F6A4B4C1C5230E600831F4A /* tolua_fix.h */; };
 		9F6A4C821C5230E600831F4A /* tolua_fix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F6A4B4C1C5230E600831F4A /* tolua_fix.h */; };
+		9FE97E381DF3D77300433C90 /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD5AFED1CBA81EA0030DF72 /* libluajit.a */; };
 		9FE981381CAD98D90038012F /* CCStencilStateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FE981361CAD98D90038012F /* CCStencilStateManager.cpp */; };
 		9FE981391CAD98D90038012F /* CCStencilStateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FE981361CAD98D90038012F /* CCStencilStateManager.cpp */; };
 		9FE9813A1CAD98D90038012F /* CCStencilStateManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9FE981371CAD98D90038012F /* CCStencilStateManager.hpp */; };
@@ -1798,6 +1799,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE97E381DF3D77300433C90 /* libluajit.a in Frameworks */,
 				15AE1C1919AAE30900C27E9E /* libwebsockets.a in Frameworks */,
 				A07A4CAF1783777C0073F6A7 /* Foundation.framework in Frameworks */,
 				1A570364180BD1120088DEC7 /* libpng.a in Frameworks */,
@@ -4526,6 +4528,7 @@
 					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/chipmunk/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/lua/luajit/prebuilt/ios\"",
 				);
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
@@ -4560,6 +4563,7 @@
 					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/chipmunk/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/lua/luajit/prebuilt/ios\"",
 				);
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;

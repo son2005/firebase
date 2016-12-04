@@ -12,6 +12,49 @@
 #include "platform/android/jni/JniHelper.h"
 #endif
 
+#include "kaguya.hpp"
+void HandleError(int errCode, const char * szError)
+{  //customize your error handling, eg. write to file...
+    CCLOG("errCode=%d, szError=%s", errCode, szError);
+}
+
+static int register_firebase_analytics(kaguya::State& state)
+{
+    kaguya::LuaTable firebase_table = state.newTable();
+    state["firebase"] = firebase_table;
+    kaguya::LuaTable analytics_table = state.newTable();
+    firebase_table["analytics"] = analytics_table;
+
+    // constant
+    analytics_table["kUserPropertySignUpMethod"] = firebase::analytics::kUserPropertySignUpMethod;
+    analytics_table["kEventLogin"]               = firebase::analytics::kEventLogin;
+    analytics_table["kEventPostScore"]           = firebase::analytics::kEventPostScore;
+    analytics_table["kEventJoinGroup"]           = firebase::analytics::kEventJoinGroup;
+    analytics_table["kParameterLevel"]           = firebase::analytics::kParameterLevel;
+    analytics_table["kParameterCharacter"]       = firebase::analytics::kParameterCharacter;
+    analytics_table["kEventLevelUp"]             = firebase::analytics::kEventLevelUp;
+    analytics_table["kParameterScore"]           = firebase::analytics::kParameterScore;
+
+
+    // function
+    analytics_table["SetAnalyticsCollectionEnabled"] = &firebase::analytics::SetAnalyticsCollectionEnabled;
+    analytics_table["SetMinimumSessionDuration"]     = &firebase::analytics::SetMinimumSessionDuration;
+    analytics_table["SetSessionTimeoutDuration"]     = &firebase::analytics::SetSessionTimeoutDuration;
+    analytics_table["SetUserProperty"]               = &firebase::analytics::SetUserProperty;
+    analytics_table["SetUserId"]                     = &firebase::analytics::SetUserId;
+    analytics_table["LogEvent"]                      = kaguya::overload(
+            [](const char *name) {
+                firebase::analytics::LogEvent(name);
+            },
+            [](const char *name, const char *parameter_name, float parameter_value) {
+                firebase::analytics::LogEvent(name, parameter_name, parameter_value);
+            }
+        );
+
+
+    return 0;
+}
+
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
@@ -160,6 +203,23 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
+
+    // lua test
+    {
+        kaguya::State state;
+        state["myprint"] = kaguya::function([](const char *msg) {
+            cocos2d::log("%s", msg);
+        });
+        state.setErrorHandler(HandleError);
+        register_firebase_analytics(state);
+
+        state.dostring("myprint('# hello lua')");
+        state.dostring("myprint(string.format('kEventLogin=%s', firebase.analytics.kEventLogin))");
+        state.dostring("firebase.analytics.SetAnalyticsCollectionEnabled(false)");
+        state.dostring("firebase.analytics.LogEvent(firebase.analytics.kEventLogin)");
+        state.dostring("firebase.analytics.LogEvent(firebase.analytics.kEventPostScore, firebase.analytics.kParameterScore, 42)");
+    }
+
 
     return true;
 }

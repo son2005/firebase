@@ -600,6 +600,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../cocos2d/external/firebase_cpp_sdk/include",
+					"$(SRCROOT)/../cocos2d/external/lua/luajit/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -610,6 +611,10 @@
 					"-ObjC",
 					"-lanalytics",
 					"-lapp",
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -644,6 +649,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../cocos2d/external/firebase_cpp_sdk/include",
+					"$(SRCROOT)/../cocos2d/external/lua/luajit/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -654,6 +660,10 @@
 					"-ObjC",
 					"-lanalytics",
 					"-lapp",
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
