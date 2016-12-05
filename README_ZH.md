@@ -81,3 +81,16 @@ E/FA: GoogleService failed to initialize, status: 10, Missing google app id valu
 
 检查第4，5步骤。
 
+![android](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_android.png)
+![ios](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_ios.png)
+
+Lua
+---
+
+使用 https://github.com/satoren/kaguya 做 Lua 绑定工作。
+
+https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L21-L56
+
+lua 测试代码:
+
+https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L207-L221

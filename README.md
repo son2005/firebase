@@ -101,3 +101,14 @@ got bellow message if success
 
 ![android](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_android.png)
 ![ios](https://raw.githubusercontent.com/yinjimmy/firebase/master/ss/firebase_ios.png)
+
+Lua
+---
+
+using https://github.com/satoren/kaguya for Lua binding.
+
+https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L21-L56
+
+lua test code:
+
+https://github.com/yinjimmy/firebase/blob/master/Classes/AppDelegate.cpp#L207-L221
