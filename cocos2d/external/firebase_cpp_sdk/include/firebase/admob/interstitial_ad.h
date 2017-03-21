@@ -9,8 +9,10 @@
 namespace firebase {
 namespace admob {
 
-// Predeclarations.
-struct InterstitialAdData;
+namespace internal {
+// Forward declaration for platform-specific data, implemented in each library.
+class InterstitialAdInternal;
+}  // namespace internal
 
 /// @brief Loads and displays AdMob interstitial ads.
 ///
@@ -67,20 +69,22 @@ class InterstitialAd {
     /// application (for example, when opening an external browser during a
     /// clickthrough).
     kPresentationStateCoveringUI,
-    kPresentationStateCount
   };
 
   /// A listener class that developers can extend and pass to an
-  /// @ref InterstitialAd objects's @ref SetListener method to be
-  /// notified of presentation state changes. This is useful for changes caused
-  /// by user interaction, such as when the user closes an interstitial.
+  /// @ref InterstitialAd object's @ref SetListener method to be notified of
+  /// presentation state changes. This is useful for changes caused by user
+  /// interaction, such as when the user closes an interstitial.
   class Listener {
    public:
     /// This method is called when the @ref InterstitialAd object's presentation
     /// state changes.
+    /// @param[in] interstitial_ad The interstitial ad whose presentation state
+    ///                            changed.
+    /// @param[in] state The new presentation state.
     virtual void OnPresentationStateChanged(InterstitialAd* interstitial_ad,
-                                            PresentationState new_state) = 0;
-    virtual ~Listener() {}
+                                            PresentationState state) = 0;
+    virtual ~Listener();
   };
 
   /// Creates an uninitialized @ref InterstitialAd object.
@@ -103,7 +107,7 @@ class InterstitialAd {
   /// progress of the request.
   /// @param[in] request An AdRequest struct with information about the request
   ///                    to be made (such as targeting info).
-  Future<void> LoadAd(AdRequest request);
+  Future<void> LoadAd(const AdRequest& request);
 
   /// Returns a @ref Future containing the status of the last call to
   /// @ref LoadAd.
@@ -127,7 +131,9 @@ class InterstitialAd {
   void SetListener(Listener* listener);
 
  private:
-  InterstitialAdData* data_;
+  // An internal, platform-specific implementation object that this class uses
+  // to interact with the Google Mobile Ads SDKs for iOS and Android.
+  internal::InterstitialAdInternal* internal_;
 };
 
 }  // namespace admob

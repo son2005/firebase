@@ -4,3 +4,9 @@
 -keep,includedescriptorclasses public class com.google.android.gms.ads.AdSize { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.ads.AdView { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.ads.InterstitialAd { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.ads.MobileAds { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.ads.MobileAds{ *; }
+-keep,includedescriptorclasses public class com.google.android.gms.ads.reward.RewardedVideoAd { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.ads.reward.RewardedVideoAdListener { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.ads.reward.RewardItem { *; }
+-keep,includedescriptorclasses public class com.google.firebase.app.internal.cpp.Log { *; }

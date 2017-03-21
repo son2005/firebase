@@ -7,12 +7,7 @@
 #include <stdint.h>
 #include <utility>
 
-// TODO(amaurice): Move to a more central header file
-// Move operators use rvalue references, which are a C++11 extension.
-// Also, stlport doesn't implement std::move().
-#if __cplusplus >= 201103L && !defined(_STLPORT_VERSION)
-#define FIREBASE_USE_MOVE_OPERATORS
-#endif  // __cplusplus >= 201103L && !defined(_STLPORT_VERSION)
+#include "firebase/internal/common.h"
 
 namespace firebase {
 
@@ -33,14 +28,16 @@ enum FutureStatus {
 
   /// No result is pending.
   /// FutureBase::Release() or move operator was called.
-  kFutureStatusInvalid,
+  kFutureStatusInvalid
 };
 
 /// Handle that the API uses to identify an asynchronous call.
 /// The exact interpretation of the handle is up to the API.
 typedef uintptr_t FutureHandle;
 
-/// Type-independent return type of asynchronous calls.
+/// @brief Type-independent return type of asynchronous calls.
+///
+/// @see Future for code samples.
 ///
 /// @cond FIREBASE_APP_INTERNAL
 /// Notes:
@@ -147,8 +144,63 @@ class FutureBase {
   /// @endcond
 };
 
-/// Type-specific version of FutureBase.
-///   @tparam ResultType the type returned by the call to Api.
+/// @brief Type-specific version of FutureBase.
+///
+/// The Firebase C++ SDK uses this class to return results from asynchronous
+/// operations. All Firebase C++ functions and method calls that operate
+/// asynchronously return a Future, and provide a "LastResult" function to
+/// retrieve the most recent Future result.
+///
+/// @code
+/// // You can retrieve the Future from the function call directly, like this:
+/// Future< SampleResultType > future = firebase::SampleAsyncOperation();
+///
+/// // Or you can retrieve it later, like this:
+/// firebase::SampleAsyncOperation();
+/// // [...]
+/// Future< SampleResultType > future =
+///     firebase::SampleAsyncOperationLastResult();
+/// @endcode
+///
+/// When you have a Future from an asynchronous operation, it will eventually
+/// complete. Once it is complete, you can check for errors (a nonzero Error()
+/// means an error occurred) and get the result data if no error occurred by
+/// calling Result().
+///
+/// There are two ways to find out that a Future has completed. You can poll
+/// its Status(), or set an OnCompletion() callback:
+///
+/// @code
+/// // Check whether the status is kFutureStatusComplete.
+/// if (future.Status() == firebase::kFutureStatusComplete) {
+///   if (future.Error() == 0) {
+///     DoSomethingWithResultData(future.Result());
+///   }
+///   else {
+///     LogMessage("Error %d: %s", future.Error(), future.ErrorMessage());
+///   }
+/// }
+///
+
+/// // Or, set an OnCompletion callback, which accepts a C++11 lambda or
+/// // function pointer. You can pass your own user data to the callback. In
+/// // most cases, the callback will be running in a different thread, so take
+/// // care to make sure your code is thread-safe.
+/// future.OnCompletion([](const Future< SampleResultType >& completed_future,
+///                        void* user_data) {
+///   // We are probably in a different thread right now.
+///   if (completed_future.Error() == 0) {
+///     DoSomethingWithResultData(completed_future.Result());
+///   }
+///   else {
+///     LogMessage("Error %d: %s",
+///                completed_future.Error(),
+///                completed_future.ErrorMessage());
+///   }
+/// }, user_data);
+/// @endcode
+///
+/// @tparam ResultType The type of this Future's result.
 //
 // WARNING: This class should not have virtual methods or data members.
 //          See the warning in FutureBase for further details.

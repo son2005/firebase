@@ -31,6 +31,7 @@ struct AuthData;
 /// @ref firebase::auth::Auth::GetAuth.
 ///
 /// For example:
+/// @if cpp_examples
 /// @code{.cpp}
 ///  // Get the Auth class for your App.
 ///  firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
@@ -55,6 +56,7 @@ struct AuthData;
 ///           user->Anonymous() ? "an anonymous" : "a non-anonymous");
 ///  }
 /// @endcode
+/// @endif
 class Auth {
  public:
   /// @brief Results of calls to @ref FetchProvidersForEmail.
@@ -73,17 +75,17 @@ class Auth {
   /// Asynchronously requests the IDPs (identity providers) that can be used
   /// for the given email address.
   ///
-  /// Useful for an “identifier-first” login flow.
+  /// Useful for an "identifier-first" login flow.
   ///
+  /// @if cpp_examples
   /// The following sample code illustrates a possible login screen
   /// that allows the user to pick an identity provider.
-  ///
   /// @code{.cpp}
   ///  // This function is called every frame to display the login screen.
   ///  // Returns the identity provider name, or "" if none selected.
   ///  const char* DisplayIdentityProviders(firebase::auth::Auth& auth,
   ///                                       const char* email) {
-  ///    // Get results of most recently call to FetchProvidersForEmail().
+  ///    // Get results of most recent call to FetchProvidersForEmail().
   ///    firebase::Future<firebase::auth::Auth::FetchProvidersResult> future =
   ///        auth.FetchProvidersForEmailLastResult();
   ///    const firebase::auth::Auth::FetchProvidersResult* result =
@@ -121,6 +123,7 @@ class Auth {
   ///    return "";
   ///  }
   /// @endcode
+  /// @endif
   Future<FetchProvidersResult> FetchProvidersForEmail(const char* email);
 
   /// Get results of the most recent call to @ref FetchProvidersForEmail.
@@ -153,6 +156,7 @@ class Auth {
   /// returned instead.
   /// If there is any other existing user, that user will be signed out.
   ///
+  /// @if cpp_examples
   /// The following sample code illustrates the sign-in flow that might be
   /// used by a game or some other program with a regular (for example, 30Hz)
   /// update loop.
@@ -181,6 +185,7 @@ class Auth {
   ///           future.Error() == firebase::auth::kAuthErrorNone;
   ///  }
   /// @endcode
+  /// @endif
   Future<User*> SignInAnonymously();
 
   /// Get results of the most recent call to @ref SignInAnonymously.
@@ -214,6 +219,10 @@ class Auth {
   // ----- Password Reset -------------------------------------------------
   /// Initiates a password reset for the given email address.
   ///
+  /// If the email address is not registered, then the returned task has a
+  /// status of IsFaulted.
+  ///
+  /// @if cpp_examples
   /// The following sample code illustrating a possible password reset flow.
   /// Like in the Anonymous Sign-In example above, the ResetPasswordScreen()
   /// function is called once per frame (say 30 times per second).
@@ -221,7 +230,6 @@ class Auth {
   /// No state is persisted by the caller in this example. The state of the
   /// most recent calls are instead accessed through calls to functions like
   /// auth.SendPasswordResetEmailLastResult().
-  ///
   /// @code{.cpp}
   ///  const char* ImageNameForStatus(const firebase::FutureBase& future) {
   ///    assert(future.Status() != firebase::kFutureStatusInvalid);
@@ -254,6 +262,7 @@ class Auth {
   ///    }
   ///  }
   /// @endcode
+  /// @endif
   Future<void> SendPasswordResetEmail(const char* email);
 
   /// Get results of the most recent call to @ref SendPasswordResetEmail.
@@ -266,7 +275,16 @@ class Auth {
   ///
   /// To get the Auth object for the default app, use,
   /// GetAuth(GetDefaultFirebaseApp());
-  static Auth* GetAuth(App* app);
+  ///
+  /// If the library Auth fails to initialize, init_result_out will be
+  /// written with the result status (if a pointer is given).
+  ///
+  /// @param[in] app The App to use for the Auth object.
+  /// @param[out] init_result_out Optional: If provided, write the init result
+  /// here. Will be set to kInitResultSuccess if initialization succeeded, or
+  /// kInitResultFailedMissingDependency on Android if Google Play services is
+  /// not available on the current device.
+  static Auth* GetAuth(App* app, InitResult* init_result_out = nullptr);
 
  private:
   friend class App;

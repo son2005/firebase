@@ -21,7 +21,7 @@ namespace detail {
 class FutureApiInterface {
  public:
   // typedef void FutureCallbackFn(const FutureBase* future);
-  virtual ~FutureApiInterface() {}
+  virtual ~FutureApiInterface();
 
   /// Increment the reference count on handle's asynchronous call.
   /// Called when the Future is copied.
@@ -72,16 +72,16 @@ inline FutureBase::FutureBase(detail::FutureApiInterface* api,
   api_->ReferenceFuture(handle_);
 }
 
-inline FutureBase::~FutureBase() {
-  if (api_ != NULL) {  // NOLINT
-    api_->ReleaseFuture(handle_);
-    api_ = NULL;  // NOLINT
-  }
+inline FutureBase::~FutureBase() { Release(); }
+
+inline FutureBase::FutureBase(const FutureBase& rhs)
+    : api_(NULL)  // NOLINT
+{                 // NOLINT
+  *this = rhs;
 }
 
-inline FutureBase::FutureBase(const FutureBase& rhs) { *this = rhs; }
-
 inline FutureBase& FutureBase::operator=(const FutureBase& rhs) {
+  Release();
   api_ = rhs.api_;
   handle_ = rhs.handle_;
   if (api_ != NULL) {  // NOLINT
@@ -91,9 +91,14 @@ inline FutureBase& FutureBase::operator=(const FutureBase& rhs) {
 }
 
 #if defined(FIREBASE_USE_MOVE_OPERATORS)
-inline FutureBase::FutureBase(FutureBase&& rhs) { *this = std::move(rhs); }
+inline FutureBase::FutureBase(FutureBase&& rhs)
+    : api_(NULL)  // NOLINT
+{                 // NOLINT
+  *this = std::move(rhs);
+}
 
 inline FutureBase& FutureBase::operator=(FutureBase&& rhs) {
+  Release();
   api_ = rhs.api_;
   handle_ = rhs.handle_;
   rhs.api_ = NULL;  // NOLINT
@@ -119,7 +124,7 @@ inline int FutureBase::Error() const {
 }
 
 inline const char* FutureBase::ErrorMessage() const {
-  return api_ == NULL ? 0 : api_->GetFutureErrorMessage(handle_); // NOLINT
+  return api_ == NULL ? 0 : api_->GetFutureErrorMessage(handle_);  // NOLINT
 }
 
 inline const void* FutureBase::ResultVoid() const {

@@ -20,7 +20,7 @@ struct AuthData;
 /// @brief Interface implemented by each identity provider.
 class UserInfoInterface {
  public:
-  virtual ~UserInfoInterface() {}
+  virtual ~UserInfoInterface();
 
   /// Gets the unique user ID for the user.
   ///

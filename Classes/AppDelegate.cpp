@@ -205,6 +205,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->runWithScene(scene);
 
     // lua test
+#if 0
     {
         kaguya::State state;
         state["myprint"] = kaguya::function([](const char *msg) {
@@ -219,7 +220,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         state.dostring("firebase.analytics.LogEvent(firebase.analytics.kEventLogin)");
         state.dostring("firebase.analytics.LogEvent(firebase.analytics.kEventPostScore, firebase.analytics.kParameterScore, 42)");
     }
-
+#endif // lua
 
     return true;
 }

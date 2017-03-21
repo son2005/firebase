@@ -3,56 +3,73 @@
 #ifndef FIREBASE_ADMOB_CLIENT_CPP_INCLUDE_FIREBASE_ADMOB_TYPES_H_
 #define FIREBASE_ADMOB_CLIENT_CPP_INCLUDE_FIREBASE_ADMOB_TYPES_H_
 
-#ifdef __ANDROID__
+#if defined(__APPLE__)
+#include "TargetConditionals.h"
+#endif  // __APPLE__
+
+#if defined(__ANDROID__)
 #include <jni.h>
-#elif __APPLE__
+#elif defined(TARGET_OS_IPHONE)
 extern "C" {
 #include <objc/objc.h>
 }  // extern "C"
-#endif  // __ANDROID__
+#endif  // __ANDROID__, TARGET_OS_IPHONE
 
 namespace firebase {
 namespace admob {
 
-/// This is a platform specific datatype that is required to create a
-/// @ref BannerView or @ref InterstitialAd .
+/// This is a platform specific datatype that is required to create an AdMob ad.
 ///
 /// The following defines the datatype on each platform:
 /// <ul>
 ///   <li>Android: A `jobject` which references an Android Activity.</li>
 ///   <li>iOS: An `id` which references an iOS UIView.</li>
 /// </ul>
-#ifdef __ANDROID__
+#if defined(__ANDROID__)
 /// An Android Activity from Java.
 typedef jobject AdParent;
-#elif __APPLE__
+#elif defined(TARGET_OS_IPHONE)
 /// A pointer to an iOS UIView.
 typedef id AdParent;
 #else
 /// A void pointer for stub classes.
 typedef void *AdParent;
-#endif  // __ANDROID__
+#endif  // __ANDROID__, TARGET_OS_IPHONE
 
 /// Error codes returned by Future::Error().
 enum AdMobError {
   /// Call completed successfully.
   kAdMobErrorNone,
-  /// The BannerView or InterstitialAd has not been fully initialized.
+  /// The ad has not been fully initialized.
   kAdMobErrorUninitialized,
-  /// The BannerView or InterstitialAd is already initialized (repeat call).
+  /// The ad is already initialized (repeat call).
   kAdMobErrorAlreadyInitialized,
-  /// A call to @ref BannerView::LoadAd, @ref InterstitialAd::LoadAd or
-  /// @ref InterstitialAd::Show has failed because an ad is currently loading.
+  /// A call has failed because an ad is currently loading.
   kAdMobErrorLoadInProgress,
   /// A call to load an ad has failed due to an internal SDK error.
   kAdMobErrorInternalError,
   /// A call to load an ad has failed due to an invalid request.
   kAdMobErrorInvalidRequest,
-  /// A call to load an ad has failed due to an a network error.
+  /// A call to load an ad has failed due to a network error.
   kAdMobErrorNetworkError,
   /// A call to load an ad has failed because no ad was available to serve.
   kAdMobErrorNoFill,
-  kAdMobErrorCount
+  /// An attempt has been made to show an ad on an Android Activity that has
+  /// no window token (such as one that's not done initializing).
+  kAdMobErrorNoWindowToken,
+};
+
+/// @brief Types of ad sizes.
+enum AdSizeType { kAdSizeStandard = 0 };
+
+/// @brief An ad size value to be used in requesting ads.
+struct AdSize {
+  /// The type of ad size.
+  AdSizeType ad_size_type;
+  /// Height of the ad (in points or dp).
+  int height;
+  /// Width of the ad (in points or dp).
+  int width;
 };
 
 /// @brief Gender information used as part of the
@@ -77,9 +94,6 @@ enum ChildDirectedTreatmentState {
   kChildDirectedTreatmentStateNotTagged
 };
 
-/// @brief Types of ad sizes.
-enum AdSizeType { kAdSizeStandard = 0 };
-
 /// @brief Generic Key-Value container used for the "extras" values in an
 /// @ref firebase::admob::AdRequest.
 struct KeyValuePair {
@@ -89,8 +103,7 @@ struct KeyValuePair {
   const char *value;
 };
 
-/// @brief The information needed for a @ref BannerView or @ref InterstitialAd
-/// to request an ad.
+/// @brief The information needed to request an ad.
 struct AdRequest {
   /// An array of test device IDs specifying devices that test ads will be
   /// returned for.
@@ -98,7 +111,7 @@ struct AdRequest {
   /// The number of entries in the array referenced by test_device_ids.
   unsigned int test_device_id_count;
   /// An array of keywords or phrases describing the current user activity, such
-  /// as "Sports Scores" or "Football".
+  /// as "Sports Scores" or "Football."
   const char **keywords;
   /// The number of entries in the array referenced by keywords.
   unsigned int keyword_count;
@@ -124,8 +137,8 @@ struct AdRequest {
   ChildDirectedTreatmentState tagged_for_child_directed_treatment;
 };
 
-/// @brief The screen location and dimensions of a @ref BannerView once it has
-/// been initialized. If the @ref BannerView is hidden, all values will be zero.
+/// @brief The screen location and dimensions of an ad view once it has been
+/// initialized.
 struct BoundingBox {
   /// Default constructor which initializes all member variables to 0.
   BoundingBox() : height(0), width(0), x(0), y(0) {}
@@ -137,16 +150,6 @@ struct BoundingBox {
   int x;
   /// Vertical position of the ad in pixels from the top.
   int y;
-};
-
-/// @brief An ad size value to be used in requesting ads.
-struct AdSize {
-  /// The type of ad size (for now there is only one, standard).
-  AdSizeType ad_size_type;
-  /// Height of the ad (in points or dp).
-  int height;
-  /// Width of the ad (in points or dp).
-  int width;
 };
 
 }  // namespace admob

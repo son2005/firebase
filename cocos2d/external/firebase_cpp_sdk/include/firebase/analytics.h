@@ -111,6 +111,9 @@ struct Parameter {
     value.string_value = parameter_value;
   }
 
+// clang-format off
+// clang-format on
+
 
   /// @brief Name of the parameter.
   ///

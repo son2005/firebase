@@ -9,3 +9,4 @@ proj.android/libs/gps/gen
 proj.android/obj
 proj.ios_mac/firebase.xcodeproj/project.xcworkspace
 proj.ios_mac/firebase.xcodeproj/xcuserdata
+.d

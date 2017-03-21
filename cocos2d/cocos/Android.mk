@@ -86,7 +86,7 @@ LOCAL_STATIC_LIBRARIES += cocos_jpeg_static
 #LOCAL_STATIC_LIBRARIES += cocos_tiff_static
 LOCAL_STATIC_LIBRARIES += cocos_webp_static
 LOCAL_STATIC_LIBRARIES += cocos_zlib_static
-LOCAL_STATIC_LIBRARIES += firebase-prebuilt firebase-analytics
+LOCAL_STATIC_LIBRARIES += firebase-prebuilt firebase-analytics firebase-admob
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dxandroid_static
 

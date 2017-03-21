@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19FEADA21E7F931F002A082D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADA11E7F931F002A082D /* GoogleMobileAds.framework */; };
+		19FEADA41E7FC98E002A082D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADA31E7FC98E002A082D /* MediaPlayer.framework */; };
+		19FEADA61E7FC9A4002A082D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADA51E7FC9A4002A082D /* MobileCoreServices.framework */; };
+		19FEADA81E7FC9CE002A082D /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADA71E7FC9CE002A082D /* GLKit.framework */; };
+		19FEADAA1E7FC9DB002A082D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADA91E7FC9DB002A082D /* CoreVideo.framework */; };
+		19FEADAC1E7FC9E6002A082D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADAB1E7FC9E6002A082D /* SafariServices.framework */; };
+		19FEADAE1E7FC9F4002A082D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADAD1E7FC9F4002A082D /* CoreTelephony.framework */; };
+		19FEADB01E7FCA09002A082D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADAF1E7FCA09002A082D /* MessageUI.framework */; };
+		19FEADB21E7FCA66002A082D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FEADB11E7FCA66002A082D /* CoreMedia.framework */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -112,6 +121,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19FEADA11E7F931F002A082D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		19FEADA31E7FC98E002A082D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADA51E7FC9A4002A082D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADA71E7FC9CE002A082D /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADA91E7FC9DB002A082D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADAB1E7FC9E6002A082D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADAD1E7FC9F4002A082D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADAF1E7FCA09002A082D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		19FEADB11E7FCA66002A082D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -188,6 +206,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19FEADB21E7FCA66002A082D /* CoreMedia.framework in Frameworks */,
+				19FEADB01E7FCA09002A082D /* MessageUI.framework in Frameworks */,
+				19FEADAE1E7FC9F4002A082D /* CoreTelephony.framework in Frameworks */,
+				19FEADAC1E7FC9E6002A082D /* SafariServices.framework in Frameworks */,
+				19FEADAA1E7FC9DB002A082D /* CoreVideo.framework in Frameworks */,
+				19FEADA81E7FC9CE002A082D /* GLKit.framework in Frameworks */,
+				19FEADA61E7FC9A4002A082D /* MobileCoreServices.framework in Frameworks */,
+				19FEADA41E7FC98E002A082D /* MediaPlayer.framework in Frameworks */,
 				9F7FE8C31D066D26002EC90A /* GameController.framework in Frameworks */,
 				9F7FE8C11D066D0C002EC90A /* libsqlite3.tbd in Frameworks */,
 				9F7FE8BF1D066CDE002EC90A /* AddressBook.framework in Frameworks */,
@@ -202,6 +228,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				9F7FE8BC1D066951002EC90A /* GoogleSymbolUtilities.framework in Frameworks */,
 				9F7FE8BA1D066951002EC90A /* FirebaseInstanceID.framework in Frameworks */,
+				19FEADA21E7F931F002A082D /* GoogleMobileAds.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
@@ -285,6 +312,15 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19FEADB11E7FCA66002A082D /* CoreMedia.framework */,
+				19FEADAF1E7FCA09002A082D /* MessageUI.framework */,
+				19FEADAD1E7FC9F4002A082D /* CoreTelephony.framework */,
+				19FEADAB1E7FC9E6002A082D /* SafariServices.framework */,
+				19FEADA91E7FC9DB002A082D /* CoreVideo.framework */,
+				19FEADA71E7FC9CE002A082D /* GLKit.framework */,
+				19FEADA51E7FC9A4002A082D /* MobileCoreServices.framework */,
+				19FEADA31E7FC98E002A082D /* MediaPlayer.framework */,
+				19FEADA11E7F931F002A082D /* GoogleMobileAds.framework */,
 				9F7FE8C21D066D26002EC90A /* GameController.framework */,
 				9F7FE8C01D066D0C002EC90A /* libsqlite3.tbd */,
 				9F7FE8BE1D066CDE002EC90A /* AddressBook.framework */,
@@ -583,6 +619,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Analytics",
 					"$(PROJECT_DIR)/../cocos2d/external/firebase_cpp_sdk/frameworks/ios/universal",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -603,13 +640,14 @@
 					"$(SRCROOT)/../cocos2d/external/lua/luajit/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../cocos2d/external/firebase_cpp_sdk/libs/ios/universal";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 					"-ObjC",
 					"-lanalytics",
+					"-ladmob",
 					"-lapp",
 					"-pagezero_size",
 					10000,
@@ -634,6 +672,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Analytics",
 					"$(PROJECT_DIR)/../cocos2d/external/firebase_cpp_sdk/frameworks/ios/universal",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -652,13 +691,14 @@
 					"$(SRCROOT)/../cocos2d/external/lua/luajit/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../cocos2d/external/firebase_cpp_sdk/libs/ios/universal";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 					"-ObjC",
 					"-lanalytics",
+					"-ladmob",
 					"-lapp",
 					"-pagezero_size",
 					10000,

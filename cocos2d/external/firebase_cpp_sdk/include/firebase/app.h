@@ -16,6 +16,24 @@ namespace auth {
 class Auth;
 }
 
+/// @brief Each Firebase module or class can return this from its initialization
+/// function, so you can determine whether it initialized successfully.
+enum InitResult {
+  /// The given library was successfully initialized.
+  kInitResultSuccess,
+
+  /// The given library failed to initialize due to a missing dependency.
+  ///
+  /// On Android, this means that Google Play services is not available and the
+  /// library requires it. Use google_play_services::CheckAvailability() and
+  /// google_play_services::MakeAvailable() to resolve this issue.
+  kInitResultFailedMissingDependency
+};
+
+// This doesn't need to be accessible to the end user, especially in C#.
+// Because this is not a class member, it forces C# to create a class
+// just to contain this so it's cleaner just not to include it.
+
 /// @brief Default name for firebase::App() objects.
 extern const char* kDefaultAppName;
 
@@ -34,59 +52,68 @@ class AppOptions {
   /// Set the Firebase app ID used to uniquely identify an instance of an app.
   ///
   /// This is the mobilesdk_app_id in the Android google-services.json config
-  /// file or PROJECT_ID in the GoogleService-Info.plist.  This only needs
-  /// to be specified if your application does not include google-services.json
-  /// or GoogleService-Info.plist in its resources.
-  void set_app_id(const char* app_id) { app_id_ = app_id; }
+  /// file or PROJECT_ID in the GoogleService-Info.plist.
+  ///
+  /// This only needs to be specified if your application does not include
+  /// google-services.json or GoogleService-Info.plist in its resources.
+  void set_app_id(const char* id) { app_id_ = id; }
 
   /// Retrieves the app ID.
   ///
   /// @see set_app_id().
+  ///
   const char* app_id() const { return app_id_.c_str(); }
 
   /// API key used to authenticate requests from your app.
   ///
   /// For example, "AIzaSyDdVgKwhZl0sTTTLZ7iTmt1r3N2cJLnaDk" used to identify
   /// your app to Google servers.
-  void set_api_key(const char* api_key) { api_key_ = api_key; }
+  ///
+  /// This only needs to be specified if your application does not include
+  /// google-services.json or GoogleService-Info.plist in its resources.
+  void set_api_key(const char* key) { api_key_ = key; }
 
   /// Get the API key.
   ///
   /// @see set_api_key().
+  ///
   const char* api_key() const { return api_key_.c_str(); }
 
   /// Set the Firebase Cloud Messaging sender ID.
   ///
   /// For example "012345678901", used to configure Firebase Cloud Messaging.
-  void set_messaging_sender_id(const char* fcm_sender_id) {
-    fcm_sender_id_ = fcm_sender_id;
+  ///
+  /// This only needs to be specified if your application does not include
+  /// google-services.json or GoogleService-Info.plist in its resources.
+  void set_messaging_sender_id(const char* sender_id) {
+    fcm_sender_id_ = sender_id;
   }
 
   /// Get the Firebase Cloud Messaging sender ID.
   ///
   /// @see set_messaging_sender_id().
+  ///
   const char* messaging_sender_id() const { return fcm_sender_id_.c_str(); }
 
   /// @cond FIREBASE_APP_INTERNAL
 
   /// Set the database root URL, e.g. @"http://abc-xyz-123.firebaseio.com".
-  void set_database_url(const char* database_url) {
-    database_url_ = database_url;
-  }
+  void set_database_url(const char* url) { database_url_ = url; }
+
   /// Get database root URL, e.g. @"http://abc-xyz-123.firebaseio.com".
+  ///
   const char* database_url() const { return database_url_.c_str(); }
 
   /// Set the tracking ID for Google Analytics, e.g. @"UA-12345678-1".
-  void set_ga_tracking_id(const char* ga_tracking_id) {
-    ga_tracking_id_ = ga_tracking_id;
-  }
+  void set_ga_tracking_id(const char* id) { ga_tracking_id_ = id; }
 
   /// Get the tracking ID for Google Analytics,
   /// @see set_ga_tracking_id().
+  ///
   const char* ga_tracking_id() const { return ga_tracking_id_.c_str(); }
 
   /// Set the Google Cloud Storage bucket name,
-  /// e.g. @"abc-xyz-123.storage.firebase.com".
+  /// e.g. @\"abc-xyz-123.storage.firebase.com\".
   void set_storage_bucket(const char* bucket) { storage_bucket_ = bucket; }
 
   /// Get the Google Cloud Storage bucket name,
@@ -156,7 +183,7 @@ class App {
   /// @param[in] activity JNI reference to the Android activity, required to
   /// allow Firebase services to interact with the Android application.
   ///
-  /// @returns New App instance, the App should not be destroyed for the
+  /// @returns New App instance. The App should not be destroyed for the
   /// lifetime of the application.
   static App* Create(const AppOptions& options, JNIEnv* jni_env,
                      jobject activity);
@@ -195,7 +222,7 @@ class App {
   /// @param[in] activity JNI reference to the Android activity, required to
   /// allow Firebase services to interact with the Android application.
   ///
-  /// @returns New App instance, the App should not be destroyed for the
+  /// @returns New App instance. The App should not be destroyed for the
   /// lifetime of the application.
   static App* Create(const AppOptions& options, const char* name,
                      JNIEnv* jni_env, jobject activity);
@@ -256,6 +283,7 @@ class App {
   /// @note This is specific to Android.
   jobject activity_;
 #endif  // defined(__ANDROID__) || defined(DOXYGEN)
+
   /// Name of the App instance.
   std::string name_;
   /// Options used to create this App instance.

@@ -9,8 +9,10 @@
 namespace firebase {
 namespace admob {
 
-// Predeclarations.
-struct BannerViewData;
+namespace internal {
+// Forward declaration for platform-specific data, implemented in each library.
+class BannerViewInternal;
+}  // namespace internal
 
 /// @brief Loads and displays AdMob banner ads.
 ///
@@ -67,7 +69,6 @@ class BannerView {
     /// leave the application (for example, when opening an external browser
     /// during a clickthrough).
     kPresentationStateCoveringUI,
-    kPresentationStateCount
   };
 
   /// The possible screen positions for a @ref BannerView.
@@ -84,23 +85,26 @@ class BannerView {
     kPositionBottomLeft,
     /// Bottom-right corner of the screen.
     kPositionBottomRight,
-    kPositionCount
   };
 
   /// A listener class that developers can extend and pass to a @ref BannerView
-  /// objects's @ref SetListener method to be notified of changes to
-  /// the presentation state and bounding box.
+  /// object's @ref SetListener method to be notified of changes to the
+  /// presentation state and bounding box.
   class Listener {
    public:
     /// This method is called when the @ref BannerView object's presentation
     /// state changes.
+    /// @param[in] banner_view The banner view whose presentation state changed.
+    /// @param[in] state The new presentation state.
     virtual void OnPresentationStateChanged(BannerView* banner_view,
-                                            PresentationState new_state) = 0;
+                                            PresentationState state) = 0;
     /// This method is called when the @ref BannerView object's bounding box
     /// changes.
+    /// @param[in] banner_view The banner view whose bounding box changed.
+    /// @param[in] box The new bounding box.
     virtual void OnBoundingBoxChanged(BannerView* banner_view,
-                                      BoundingBox new_box) = 0;
-    virtual ~Listener() {}
+                                      BoundingBox box) = 0;
+    virtual ~Listener();
   };
 
   /// Creates an uninitialized @ref BannerView object.
@@ -123,7 +127,7 @@ class BannerView {
   /// automatically be displayed in the BannerView.
   /// @param[in] request An AdRequest struct with information about the request
   ///                    to be made (such as targeting info).
-  Future<void> LoadAd(AdRequest request);
+  Future<void> LoadAd(const AdRequest& request);
 
   /// Returns a @ref Future containing the status of the last call to
   /// @ref LoadAd.
@@ -166,7 +170,12 @@ class BannerView {
   Future<void> DestroyLastResult() const;
 
   /// Moves the @ref BannerView so that its top-left corner is located at
-  /// (x, y).
+  /// (x, y). Coordinates are in pixels from the top-left corner of the screen.
+  ///
+  /// When built for Android, the library will not display an ad on top of or
+  /// beneath an Activity's status bar. If a call to MoveTo would result in an
+  /// overlap, the @ref BannerView is placed just below the status bar, so no
+  /// overlap occurs.
   /// @param[in] x The desired horizontal coordinate.
   /// @param[in] y The desired vertical coordinate.
   Future<void> MoveTo(int x, int y);
@@ -181,20 +190,23 @@ class BannerView {
   /// version of @ref MoveTo.
   Future<void> MoveToLastResult() const;
 
-  /// Retrieves the @ref BannerView's current onscreen size and location.
-  /// @return The current size and location.
-  BoundingBox GetBoundingBox() const;
-
   /// Returns the current presentation state of the @ref BannerView.
   /// @return The current presentation state.
   PresentationState GetPresentationState() const;
+
+  /// Retrieves the @ref BannerView's current onscreen size and location.
+  /// @return The current size and location. Values are in pixels, and location
+  ///         coordinates originate from the top-left corner of the screen.
+  BoundingBox GetBoundingBox() const;
 
   /// Sets the @ref Listener for this object.
   /// @param[in] listener A valid BannerView::Listener to receive callbacks.
   void SetListener(Listener* listener);
 
  private:
-  BannerViewData* data_;
+  // An internal, platform-specific implementation object that this class uses
+  // to interact with the Google Mobile Ads SDKs for iOS and Android.
+  internal::BannerViewInternal* internal_;
 };
 
 }  // namespace admob

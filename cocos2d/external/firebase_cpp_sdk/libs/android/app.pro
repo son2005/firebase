@@ -2,6 +2,9 @@
 -keep,includedescriptorclasses public class com.google.android.gms.common.api.Result { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.common.api.ResultCallback { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.common.api.Status { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.common.ConnectionResult { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.common.GoogleApiAvailability { *; }
+-keep,includedescriptorclasses public class com.google.android.gms.common.GoogleApiAvailability{ *; }
 -keep,includedescriptorclasses public class com.google.android.gms.crash.internal.api.CrashApiImpl { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.tasks.OnFailureListener { *; }
 -keep,includedescriptorclasses public class com.google.android.gms.tasks.OnSuccessListener { *; }

@@ -100,6 +100,17 @@ static const char* const kEventAppOpen = "app_open";
 /// </ul>
 static const char* const kEventBeginCheckout = "begin_checkout";
 
+/// Earn Virtual Currency event. This event tracks the awarding of virtual
+/// currency in your app. Log this along with @ref
+/// kEventSpendVirtualCurrency to better understand your virtual economy.
+/// Params:
+///
+/// <ul>
+///  <li>@ref kParameterVirtualCurrencyName (string)</li>
+///  <li>@ref kParameterValue (signed 64-bit integer or double)</li>
+/// </ul>
+static const char* const kEventEarnVirtualCurrency = "earn_virtual_currency";
+
 /// E-Commerce Purchase event. This event signifies that an item was
 /// purchased by a user. Note: This is different from the in-app purchase
 /// event, which is reported automatically for App Store-based apps. Note:

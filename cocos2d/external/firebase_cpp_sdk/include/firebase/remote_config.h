@@ -112,7 +112,11 @@ struct ConfigKeyValue {
 ///
 /// @param[in] app Default @ref firebase::App instance.
 ///            @see firebase::App::GetInstance().
-void Initialize(const App& app);
+///
+/// @return kInitResultSuccess if initialization succeeded, or
+/// kInitResultFailedMissingDependency on Android if Google Play services is
+/// not available on the current device.
+InitResult Initialize(const App& app);
 
 /// @brief Terminate the RemoteConfig API.
 ///
@@ -391,6 +395,42 @@ std::vector<unsigned char> GetData(const char* key, ValueInfo* info);
 std::vector<unsigned char> GetData(const char* key,
                                    const char* config_namespace,
                                    ValueInfo* info);
+
+/// @brief Gets the set of keys that start with the given prefix, in the
+/// default namespace.
+///
+/// @param[in] prefix The key prefix to look for. If empty or null, this
+/// method will return all keys.
+///
+/// @returns Set of Remote Config parameter keys that start with the specified
+/// prefix. Will return an empty set if there are no keys with the given
+/// prefix.
+std::vector<std::string> GetKeysByPrefix(const char* prefix);
+
+/// @brief Gets the set of keys that start with the given prefix, in the given
+/// namespace.
+///
+/// @param[in] prefix The key prefix to look for. If empty or null, this
+/// method will return all keys in the given namespace.
+/// @param[in] config_namespace The namespace in which to look up the keys.
+///
+/// @returns Set of Remote Config parameter keys that start with the specified
+/// prefix. Will return an empty set if there are no keys with the given
+/// prefix.
+std::vector<std::string> GetKeysByPrefix(const char* prefix,
+                                         const char* config_namespace);
+
+/// @brief Gets the set of all keys in the default namespace.
+///
+/// @returns Set of all Remote Config parameter keys in the default namespace.
+std::vector<std::string> GetKeys();
+
+/// @brief Gets the set of all keys in the given namespace.
+///
+/// @param[in] config_namespace The namespace in which to look up the keys.
+///
+/// @returns Set of all Remote Config parameter keys in the given namespace.
+std::vector<std::string> GetKeys(const char* config_namespace);
 
 /// @brief Fetches config data from the server.
 ///
