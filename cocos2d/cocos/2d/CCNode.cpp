@@ -116,6 +116,7 @@ Node::Node()
 #if CC_USE_PHYSICS
 , _physicsBody(nullptr)
 #endif
+, _componentContainer(nullptr)
 {
     // set default scheduler and actionManager
     _director = Director::getInstance();
@@ -203,6 +204,10 @@ void Node::cleanup()
         ScriptEngineManager::sendNodeEventToLua(this, kNodeOnCleanup);
     }
 #endif // #if CC_ENABLE_SCRIPT_BINDING
+    
+    removeAllComponents();
+    
+    CC_SAFE_DELETE(_componentContainer);
     
     // actions
     this->stopAllActions();
@@ -1257,6 +1262,11 @@ void Node::onEnter()
     if (_onEnterCallback)
         _onEnterCallback();
     
+    if (_componentContainer && !_componentContainer->isEmpty())
+    {
+        _componentContainer->onEnter();
+    }
+    
     _isTransitionFinished = false;
     
     for( const auto &child: _children)
@@ -1335,6 +1345,11 @@ void Node::onExit()
     
     if (_onExitCallback)
         _onExitCallback();
+    
+    if (_componentContainer && !_componentContainer->isEmpty())
+    {
+        _componentContainer->onExit();
+    }
     
     this->pause();
     
@@ -1578,6 +1593,11 @@ void Node::update(float fDelta)
         ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&event);
     }
 #endif
+    
+    if (_componentContainer && !_componentContainer->isEmpty())
+    {
+        _componentContainer->visit(fDelta);
+    }
 }
 
 // MARK: coordinates
@@ -1839,6 +1859,52 @@ void Node::updateTransform()
     // Recursively iterate over children
     for( const auto &child: _children)
         child->updateTransform();
+}
+
+// MARK: components
+
+Component* Node::getComponent(const std::string& name)
+{
+    if (_componentContainer)
+        return _componentContainer->get(name);
+    
+    return nullptr;
+}
+
+bool Node::addComponent(Component *component)
+{
+    // lazy alloc
+    if (!_componentContainer)
+        _componentContainer = new (std::nothrow) ComponentContainer(this);
+    
+    // should enable schedule update, then all components can receive this call back
+    scheduleUpdate();
+    
+    return _componentContainer->add(component);
+}
+
+bool Node::removeComponent(const std::string& name)
+{
+    if (_componentContainer)
+        return _componentContainer->remove(name);
+    
+    return false;
+}
+
+bool Node::removeComponent(Component *component)
+{
+    if (_componentContainer)
+    {
+        return _componentContainer->remove(component);
+    }
+    
+    return false;
+}
+
+void Node::removeAllComponents()
+{
+    if (_componentContainer)
+        _componentContainer->removeAll();
 }
 
 // MARK: Opacity and Color

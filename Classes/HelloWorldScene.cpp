@@ -5,45 +5,65 @@
 #include "ScreenLog.h"
 
 USING_NS_CC;
-class Clickable : public CCNode
+class TouchCom : public cocos2d::CCComponent
 {
 public:
-    static void create(CCNode *node, std::function<void()> callback) {
-        Clickable *item = new Clickable(node, callback);
-        item->autorelease();
+    static TouchCom* create(std::function<void()> callback, const std::string& name = "") {
+        TouchCom* com = new TouchCom();
+        com->setCallback(callback);
+        if (!name.empty()) {
+            com->setName(name);
+        }
+        com->autorelease();
+        return com;
     }
     
-    Clickable(CCNode *node, std::function<void()> callback) : CCNode() {
-        _renderNode = node;
-        _click = callback;
+    TouchCom() : CCComponent() {
+        _callback = nullptr;
         
-        if (_click != nullptr) {
-            auto lis = EventListenerTouchOneByOne::create();
-            lis->setSwallowTouches(true);
-            lis->onTouchBegan = [&](Touch* touch, Event* event) {
-                if (event->getCurrentTarget()->getBoundingBox().containsPoint(touch->getLocation())) {
-                    _click();
-                    return true;
-                }
-                
-                return false;
-            };
-            CCDirector::sharedDirector()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(lis, _renderNode);
-        }
+        _eventListener = EventListenerTouchOneByOne::create();
+        _eventListener->setSwallowTouches(true);
+        _eventListener->onTouchBegan = [&](Touch* touch, Event* event) {
+            if (!isEnabled()) return false;
+            
+            if (event->getCurrentTarget()->getBoundingBox().containsPoint(touch->getLocation())) {
+                _callback();
+                event->getCurrentTarget()->runAction(CCSequence::create(CCScaleTo::create(0.1, 1.2),
+                                                                        CCScaleTo::create(0.2, 1.0),
+                                                                        NULL));
+                return true;
+            }
+            
+            return false;
+        };
         
-        node->addChild(this);
     }
-    virtual ~Clickable() {
+    
+    void setCallback(std::function<void()> callback) {
+        _callback = callback;
+    }
+    
+    // owerrides
+    virtual void onAdd() {
+        if (_enabled && _callback && getOwner()) {
+            CCDirector::sharedDirector()->getEventDispatcher()->
+                addEventListenerWithSceneGraphPriority(_eventListener, getOwner());
+        }
+    }
+    virtual void onRemove() {
+        if (_eventListener) {
+            CCDirector::sharedDirector()->getEventDispatcher()->removeEventListener(_eventListener);
+        }
     }
     
 private:
-    CCNode *_renderNode;
-    std::function<void()> _click;
+    std::function<void()> _callback;
+    EventListenerTouchOneByOne *_eventListener;
 };
 
 cocos2d::CCNode *createButton(const std::string& text, std::function<void()> cb, int fontSize = 24) {
     auto label = Label::createWithSystemFont(text, "sans", fontSize);
-    Clickable::create(label, cb);
+    label->addComponent(TouchCom::create(cb));
     return label;
 }
 
@@ -61,7 +81,8 @@ const char* kAdMobAppID = "ca-app-pub-1329374026572143~5121874919";
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 const char* kAdViewAdUnit = "ca-app-pub-3940256099942544/6300978111";
 const char* kInterstitialAdUnit = "ca-app-pub-3940256099942544/1033173712";
-const char* kRewardedVideoAdUnit = "ca-app-pub-1329374026572143/2190258116";
+// const char* kRewardedVideoAdUnit = "ca-app-pub-1329374026572143/2190258116"; // without any mediation
+const char* kRewardedVideoAdUnit = "ca-app-pub-1329374026572143/3848461313";
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 const char* kAdViewAdUnit = "ca-app-pub-3940256099942544/2934735716";
 const char* kInterstitialAdUnit = "ca-app-pub-3940256099942544/4411468910";
